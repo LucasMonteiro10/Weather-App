@@ -20,12 +20,15 @@ import androidx.navigation.compose.rememberNavController
 import com.weatherapp.ui.nav.BottomNavBar
 import com.weatherapp.ui.nav.MainNavHost
 import com.weatherapp.ui.theme.WeatherAppTheme
+import com.weatherapp.view.MainViewModel
+import androidx.activity.viewModels
 
 @OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val viewModel : MainViewModel by viewModels()
             val navController = rememberNavController()
             WeatherAppTheme {
                 Scaffold(
@@ -53,7 +56,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                         innerPadding ->
                     Box(modifier = Modifier.padding(innerPadding)) {
-                        MainNavHost(navController = navController)
+                        MainNavHost(navController = navController, viewModel)
                     }
                 }
             }
