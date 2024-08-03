@@ -57,6 +57,9 @@ class MainActivity : ComponentActivity() {
                         if (city.isNotBlank()) viewModel.add(city)
                         showDialog = false
                     })
+                if (!viewModel.loggedIn) {
+                    this.finish()
+                }
                 Scaffold(
                     topBar = {
                         TopAppBar(
@@ -64,7 +67,7 @@ class MainActivity : ComponentActivity() {
                             actions = {
                                 IconButton( onClick = {
                                     Firebase.auth.signOut()
-                                    finish()
+
                                 } ) {
                                     Icon(
                                         imageVector = Icons.Filled.ExitToApp,
