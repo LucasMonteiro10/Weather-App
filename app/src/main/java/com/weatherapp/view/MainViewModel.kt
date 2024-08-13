@@ -7,9 +7,15 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+import com.weatherapp.model.City
+import com.weatherapp.model.User
 
 class MainViewModel : ViewModel() {
     private val _cities = getCities().toMutableStateList()
+    private val _user = mutableStateOf (User("", ""))
+    val user : User
+        get() = _user.value
+
     val cities : List<City>
         get() = _cities
     fun remove(city: City) {
@@ -34,12 +40,6 @@ class MainViewModel : ViewModel() {
         Firebase.auth.removeAuthStateListener(listener)
     }
 }
-
-data class City(
-    val name: String,
-    var weather: String,
-    var location: LatLng? = null
-)
 
 private fun getCities() = List(30) { i ->
     City(name = "Cidade $i", weather = "Carregando clima...")

@@ -23,7 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.weatherapp.view.City
+import com.weatherapp.model.City
 import com.weatherapp.view.MainViewModel
 
 @Composable
