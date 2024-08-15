@@ -15,13 +15,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import com.weatherapp.R
+import com.weatherapp.db.fb.FBDatabase
 import com.weatherapp.view.MainViewModel
 
 @Composable
 fun HomePage(
     modifier: Modifier = Modifier,
     viewModel: MainViewModel,
-    context: Context
+    context: Context,
+    fbDB: FBDatabase
 ) {
     Column(
         modifier = Modifier
