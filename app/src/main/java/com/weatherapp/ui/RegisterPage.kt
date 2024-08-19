@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.sp
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.weatherapp.db.fb.FBDatabase
+import com.weatherapp.model.User
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
@@ -86,12 +87,27 @@ fun RegisterPage(modifier: Modifier = Modifier) {
                     Firebase.auth.createUserWithEmailAndPassword(email, password1)
                         .addOnCompleteListener(activity!!) { task ->
                             if (task.isSuccessful) {
-                                Toast.makeText(activity,
-                                    "Registro OK!", Toast.LENGTH_LONG).show()
-                                activity.finish()
+                                // Pegue o UID do usuário autenticado
+                                val userId = Firebase.auth.currentUser?.uid
+
+                                // Verifique se o UID não é nulo
+                                if (userId != null) {
+                                    // Crie o objeto User com os dados do formulário
+                                    val user = User(name = name, email = email)
+
+                                    // Adicione o objeto User ao Firestore
+                                    fbDB.register(user)
+
+                                    // Exiba a mensagem de sucesso
+                                    Toast.makeText(activity, "Registro OK!", Toast.LENGTH_LONG).show()
+
+                                    // Finalize a atividade
+                                    activity.finish()
+                                } else {
+                                    Toast.makeText(activity, "Falha ao registrar no Firestore!", Toast.LENGTH_LONG).show()
+                                }
                             } else {
-                                Toast.makeText(activity,
-                                    "Registro FALHOU!", Toast.LENGTH_LONG).show()
+                                Toast.makeText(activity, "Registro FALHOU!", Toast.LENGTH_LONG).show()
                             }
                         }
                 },
@@ -99,6 +115,7 @@ fun RegisterPage(modifier: Modifier = Modifier) {
             ) {
                 Text("Registrar")
             }
+
             Spacer(modifier = Modifier.size(24.dp))
             Button(
                 onClick = { name = ""; email = ""; password1 = ""; password2 = "" }
