@@ -44,6 +44,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         val viewModel : MainViewModel by viewModels()
         setContent {
+            if (!viewModel.loggedIn) {
+                this.finish()
+            }
             var showDialog by remember { mutableStateOf(false) }
             val fbDB = remember { FBDatabase (viewModel) }
             val navController = rememberNavController()
@@ -60,9 +63,6 @@ class MainActivity : ComponentActivity() {
                         if (city.isNotBlank()) fbDB.add(city = City(city, ""))
                         showDialog = false
                     })
-                if (!viewModel.loggedIn) {
-                    this.finish()
-                }
                 Scaffold(
                     topBar = {
                         TopAppBar(
@@ -70,7 +70,6 @@ class MainActivity : ComponentActivity() {
                             actions = {
                                 IconButton( onClick = {
                                     Firebase.auth.signOut()
-
                                 } ) {
                                     Icon(
                                         imageVector = Icons.Filled.ExitToApp,

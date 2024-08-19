@@ -54,7 +54,7 @@ fun MapPage(
     GoogleMap (
         modifier = Modifier.fillMaxSize(),
         cameraPositionState = camPosState,
-        onMapClick = { fbDB.add(city = City(it.toString(), weather = "", location = it)) },
+        onMapClick = { fbDB.add(city = City("City "+it.latitude, weather = "", location = it)) },
         properties = MapProperties(isMyLocationEnabled = hasLocationPermission),
         uiSettings = MapUiSettings(myLocationButtonEnabled = true)
     ) {

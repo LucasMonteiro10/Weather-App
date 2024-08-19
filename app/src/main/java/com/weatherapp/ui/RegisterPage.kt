@@ -97,7 +97,7 @@ fun RegisterPage(modifier: Modifier = Modifier) {
                 },
                 enabled = name.isNotEmpty() && email.isNotEmpty() && password1.isNotEmpty() && password2.isNotEmpty()
             ) {
-                Text("Login")
+                Text("Registrar")
             }
             Spacer(modifier = Modifier.size(24.dp))
             Button(
