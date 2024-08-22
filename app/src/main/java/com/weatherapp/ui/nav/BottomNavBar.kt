@@ -36,7 +36,10 @@ fun BottomNavBar(navController: NavHostController) {
                     navController.navigate(item.route) {
                         // Volta pilha de navegação até HomePage (startDest).
                         navController.graph.startDestinationRoute?.let {
-                            popUpTo(it)
+                            popUpTo(it){
+                                saveState = true
+                            }
+                            restoreState = true
                         }
                         launchSingleTop = true
                     }
